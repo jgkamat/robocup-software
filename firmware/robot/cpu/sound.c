@@ -5,6 +5,7 @@
 
 #include "songs/NationalAnthem.h"
 #include "songs/ksp_theme.h"
+#include "songs/darude_sandstorm.h"
 
 volatile int music_playing;
 
