@@ -4,6 +4,7 @@
 #include "timer.h"
 
 #include "songs/NationalAnthem.h"
+#include "songs/ksp_theme.h"
 
 volatile int music_playing;
 

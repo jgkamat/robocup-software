@@ -32,6 +32,9 @@ extern const note_t song_still_alive[];
 //Anthem
 extern const note_t song_national_anthem[];
 
+// KSP theme
+extern const note_t song_ksp_theme[];
+
 // Critical hardware failed at startup
 extern const note_t song_failure[];
 
