@@ -31,4 +31,6 @@
 #define B5 988
 #define C6 1047
 
+#define CLEAR 2000
+
 #endif

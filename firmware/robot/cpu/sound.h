@@ -35,6 +35,9 @@ extern const note_t song_national_anthem[];
 // KSP theme
 extern const note_t song_ksp_theme[];
 
+// darude sandstorm
+extern const note_t song_darude_sandstorm[];
+
 // Critical hardware failed at startup
 extern const note_t song_failure[];
 
