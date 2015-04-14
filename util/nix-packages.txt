@@ -1,0 +1,16 @@
+# Compilers
+nixpkgs.defaultStdenv
+nixpkgs.glibc-tested
+nixpkgs.gcc
+nixpkgs.gnumake
+nixpkgs.cmake-3_0
+
+# Qt5
+nixpkgs.qt5
+
+# Python
+nixpkgs.python34
+nixpkgs.python27
+nixpkgs.python34Packages.pip
+nixpkgs.python27Packages.pip
+nixpkgs.python34Packages.pyserial
