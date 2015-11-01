@@ -48,11 +48,16 @@ class OneTouchPass(composite_behavior.CompositeBehavior):
 
     def reset_receive_point(self):
         angle_receive = skills.angle_receive.AngleReceive()
-
         pass_bhvr = self.subbehavior_with_name('pass')
-        receive_pt, target_point, probability = OneTouchPass.tpass.eval_best_receive_point(main.ball().pos, None, pass_bhvr.get_robots())
+
+        if main.ball().valid:
+            ball_pos = main.ball().pos
+        else:
+            ball_pos = robocup.Point(0, constants.Field.Length * 3 / 4)
+
+        receive_pt, target_point, probability = OneTouchPass.tpass.eval_best_receive_point(ball_pos, None, pass_bhvr.get_robots())
         # only change if increase of beyond the threshold.
-        if self.force_reevauation == True or pass_bhvr.receive_point == None or pass_bhvr.target_point == None or probability > OneTouchPass.tpass.eval_single_point(main.ball().pos, pass_bhvr.receive_point, pass_bhvr.get_robots()) + OneTouchPass.receivePointChangeThreshold:
+        if self.force_reevauation == True or pass_bhvr.receive_point == None or pass_bhvr.target_point == None or probability > OneTouchPass.tpass.eval_single_point(ball_pos, pass_bhvr.receive_point, pass_bhvr.get_robots()) + OneTouchPass.receivePointChangeThreshold:
             pass_bhvr.receive_point = receive_pt
             angle_receive.target_point = target_point
             self.force_reevauation = False
@@ -66,13 +71,18 @@ class OneTouchPass(composite_behavior.CompositeBehavior):
             self.reset_receive_point()
 
     def execute_passing(self):
+
+        if main.ball().valid:
+            ball_pos = main.ball().pos
+        else:
+            ball_pos = robocup.Point(0, constants.Field.Length * 3 / 4)
+
         pass_bhvr = self.subbehavior_with_name('pass')
         self.tpass_iterations = self.tpass_iterations + 1
-        if not pass_bhvr.state == tactics.coordinated_pass.CoordinatedPass.State.receiving and self.tpass_iterations > 50 or main.ball().pos.y < pass_bhvr.receive_point.y:
+        if not pass_bhvr.state == tactics.coordinated_pass.CoordinatedPass.State.receiving and self.tpass_iterations > 50 or ball_pos.y < pass_bhvr.receive_point.y:
             self.force_reevauation = True
             self.reset_receive_point()
             self.tpass_iterations = 0
 
     def on_exit_passing(self):
         self.remove_subbehavior('pass')
-

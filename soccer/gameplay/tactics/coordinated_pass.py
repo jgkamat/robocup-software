@@ -111,7 +111,12 @@ class CoordinatedPass(composite_behavior.CompositeBehavior):
     def on_enter_preparing(self):
         kicker = skills.pivot_kick.PivotKick()
         kicker.target = self.receive_point
-        kickpower = (main.ball().pos - self.receive_point).mag() / 8
+
+        if main.ball().valid:
+            kickpower = (main.ball().pos - self.receive_point).mag() / 8
+        else:
+            kickpower = 1.0
+
         if (kickpower < 0.2):
             kickpower = 0.2
 
@@ -180,7 +185,7 @@ class CoordinatedPass(composite_behavior.CompositeBehavior):
         self.subbehavior_with_name('receiver').ball_kicked = True
         self.remove_subbehavior('kicker')
 
-        
+
 
 
 

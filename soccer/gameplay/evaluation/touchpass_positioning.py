@@ -80,8 +80,12 @@ def eval_single_point(kick_point, receive_point, ignore_robots=[]):
 ## Finds the best receive point for a bounce-pass.
 #
 # Takes in an initial kick point and an optional evaluation zone.
-def eval_best_receive_point(kick_point, evaluation_zone=None, ignore_robots=[]):
+def eval_best_receive_point(kick_point, evaluation_zone=None, ignore_robots=None):
     win_eval = robocup.WindowEvaluator(main.system_state())
+
+    if ignore_robots == None:
+        ignore_robots = []
+
     for r in ignore_robots:
         win_eval.add_excluded_robot(r)
 
@@ -97,6 +101,7 @@ def eval_best_receive_point(kick_point, evaluation_zone=None, ignore_robots=[]):
         return None
 
     bestChance = None
+    bestpt= None
 
     for segment in segments:
         main.system_state().draw_line(segment, constants.Colors.Blue, "Candidate Lines")

@@ -183,12 +183,13 @@ class PassReceive(single_robot_composite_behavior.SingleRobotCompositeBehavior):
         self.ball_kicked = False
 
 
-    def execute_running(self):
+    def execute_running(self, face = True):
         # make sure teammates don't bump into us
         self.robot.shield_from_teammates(constants.Robot.Radius * 2.0)
 
         self.recalculate()
-        self.robot.face(main.ball().pos)
+        if face:
+            self.robot.face(main.ball().pos)
 
         if self._pass_line != None:
             main.system_state().draw_line(self._pass_line, constants.Colors.Blue, "Pass")
